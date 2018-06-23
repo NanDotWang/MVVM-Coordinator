@@ -25,6 +25,12 @@ class SearchHeaderView: UIView {
     init() {
         super.init(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 70))
         backgroundColor = .white
+        addSubview(headerLabel, constraints: [
+            headerLabel.heightAnchor.constraint(equalToConstant: 40),
+            headerLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
+            headerLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5),
+            headerLabel.trailingAnchor.constraint(equalTo: trailingAnchor)
+            ])
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -33,16 +39,5 @@ class SearchHeaderView: UIView {
     
     func configureHeader(_ option: Option) {
         self.headerLabel.text = option.rawValue
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        addSubview(headerLabel, constraints: [
-            headerLabel.heightAnchor.constraint(equalToConstant: 40),
-            headerLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
-            headerLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5),
-            headerLabel.trailingAnchor.constraint(equalTo: trailingAnchor)
-            ])
     }
 }

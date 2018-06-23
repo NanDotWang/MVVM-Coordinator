@@ -16,7 +16,7 @@ struct Constants {
         
         static let scheme = "http"
         static let host = "food2fork.com"
-        static let key = "b549c4c96152e677eb90de4604ca61a2"
+        static let key = "15eb1d3ea05cbbe01cdc048ed0a63e4d"
         
         static let searchRecipePath = "/api/search"
         static let getRecipePath = "/api/get"

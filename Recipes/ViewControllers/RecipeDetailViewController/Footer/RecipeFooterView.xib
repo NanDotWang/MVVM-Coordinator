@@ -27,6 +27,7 @@
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gFP-p6-2Zp">
                             <rect key="frame" x="0.0" y="37.5" width="433" height="37.5"/>
+                            <accessibility key="accessibilityConfiguration" label="showInstructionsButton"/>
                             <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                             <state key="normal" title="View Instructions"/>
                             <connections>
@@ -35,6 +36,7 @@
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q4G-ph-4Ty">
                             <rect key="frame" x="0.0" y="75" width="433" height="37.5"/>
+                            <accessibility key="accessibilityConfiguration" label="showOriginalButton"/>
                             <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                             <state key="normal" title="View Original"/>
                             <connections>

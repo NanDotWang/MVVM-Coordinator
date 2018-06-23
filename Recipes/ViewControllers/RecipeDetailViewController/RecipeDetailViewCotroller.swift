@@ -22,6 +22,8 @@ final class RecipeDetailViewController: UITableViewController {
     
     private let cellReuseIdentifier = "RecipeDetailCell"
     
+    private let headerView = RecipeHeaderView()
+    
     private lazy var footerView: RecipeFooterView = {
         guard let footerView = Bundle.main.loadNibNamed("RecipeFooterView", owner: self, options: nil)?.first as? RecipeFooterView else {
             preconditionFailure("⚠️ Can not load recipe footer view from nib")
@@ -52,6 +54,7 @@ final class RecipeDetailViewController: UITableViewController {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.showsVerticalScrollIndicator = false
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellReuseIdentifier)
+        tableView.tableHeaderView = headerView
         
         // Don't show empty cells on the bottom
         tableView.tableFooterView = UIView()
@@ -90,9 +93,10 @@ extension RecipeDetailViewController: RecipeDetailDataProviderDelegate {
         tableView.reloadData()
 
         title = dataProvider.recipeName
+        
+        headerView.loadImage(with: dataProvider.recipeHeaderImageUrl, apiService: dataProvider.apiService)
         footerView.configure(publisherName: dataProvider.publisherName, socialRank: dataProvider.socialRank)
         tableView.tableFooterView = footerView
-        tableView.tableHeaderView = RecipeHeaderView(with: dataProvider.recipeHeaderImageUrl, apiService: dataProvider.apiService)
     }
 }
 

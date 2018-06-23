@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct APIService {
+class APIService {
     
     enum Result<T> {
         case success(T)

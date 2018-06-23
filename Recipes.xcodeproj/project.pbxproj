@@ -7,11 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A40FD97120DEDD0E007EDDF1 /* XCUIElement+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40FD97020DEDD0E007EDDF1 /* XCUIElement+Extensions.swift */; };
+		A40FD97420DEED1B007EDDF1 /* URLSessionDataTaskMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40FD97320DEED1B007EDDF1 /* URLSessionDataTaskMock.swift */; };
+		A40FD97520DEED21007EDDF1 /* URLSessionDataTaskMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40FD97320DEED1B007EDDF1 /* URLSessionDataTaskMock.swift */; };
+		A40FD97720DEEF1E007EDDF1 /* APIServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40FD97620DEEF1E007EDDF1 /* APIServiceTests.swift */; };
+		A40FD97920DEEF27007EDDF1 /* DummyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40FD97820DEEF27007EDDF1 /* DummyModel.swift */; };
+		A40FD97B20DEEF37007EDDF1 /* URLSessionMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40FD97A20DEEF37007EDDF1 /* URLSessionMock.swift */; };
+		A40FD97C20DEEFE6007EDDF1 /* URLSessionMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40FD97A20DEEF37007EDDF1 /* URLSessionMock.swift */; };
+		A46286EF20DEA5DD00628ECE /* RecipeUrlTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46286EE20DEA5DD00628ECE /* RecipeUrlTests.swift */; };
+		A46286F120DEA9CE00628ECE /* RecipeAPIResouceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46286F020DEA9CE00628ECE /* RecipeAPIResouceTests.swift */; };
 		A47D8E3F20DBBED500E59783 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A47D8E3E20DBBED500E59783 /* AppDelegate.swift */; };
 		A47D8E4120DBBED500E59783 /* RecipeSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A47D8E4020DBBED500E59783 /* RecipeSearchViewController.swift */; };
 		A47D8E4620DBBED700E59783 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A47D8E4520DBBED700E59783 /* Assets.xcassets */; };
 		A47D8E4920DBBED700E59783 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A47D8E4720DBBED700E59783 /* LaunchScreen.storyboard */; };
-		A47D8E5420DBBED700E59783 /* RecipesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A47D8E5320DBBED700E59783 /* RecipesTests.swift */; };
 		A47D8E5F20DBBED700E59783 /* RecipesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A47D8E5E20DBBED700E59783 /* RecipesUITests.swift */; };
 		A47D8E7220DBC3E300E59783 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A47D8E7120DBC3E300E59783 /* String+Extensions.swift */; };
 		A47D8E7420DBDE0600E59783 /* RecipeSearchDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A47D8E7320DBDE0600E59783 /* RecipeSearchDataProvider.swift */; };
@@ -69,6 +77,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		A40FD97020DEDD0E007EDDF1 /* XCUIElement+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCUIElement+Extensions.swift"; sourceTree = "<group>"; };
+		A40FD97320DEED1B007EDDF1 /* URLSessionDataTaskMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = URLSessionDataTaskMock.swift; path = RecipesTests/Helpers/URLSessionDataTaskMock.swift; sourceTree = SOURCE_ROOT; };
+		A40FD97620DEEF1E007EDDF1 /* APIServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIServiceTests.swift; sourceTree = "<group>"; };
+		A40FD97820DEEF27007EDDF1 /* DummyModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DummyModel.swift; sourceTree = "<group>"; };
+		A40FD97A20DEEF37007EDDF1 /* URLSessionMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionMock.swift; sourceTree = "<group>"; };
+		A46286EE20DEA5DD00628ECE /* RecipeUrlTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeUrlTests.swift; sourceTree = "<group>"; };
+		A46286F020DEA9CE00628ECE /* RecipeAPIResouceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeAPIResouceTests.swift; sourceTree = "<group>"; };
 		A47D8E3B20DBBED500E59783 /* Recipes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Recipes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A47D8E3E20DBBED500E59783 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A47D8E4020DBBED500E59783 /* RecipeSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeSearchViewController.swift; sourceTree = "<group>"; };
@@ -76,7 +91,6 @@
 		A47D8E4820DBBED700E59783 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A47D8E4A20DBBED700E59783 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A47D8E4F20DBBED700E59783 /* RecipesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RecipesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		A47D8E5320DBBED700E59783 /* RecipesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesTests.swift; sourceTree = "<group>"; };
 		A47D8E5520DBBED700E59783 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A47D8E5A20DBBED700E59783 /* RecipesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RecipesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A47D8E5E20DBBED700E59783 /* RecipesUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesUITests.swift; sourceTree = "<group>"; };
@@ -131,6 +145,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A40FD97220DEECF9007EDDF1 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				A40FD97820DEEF27007EDDF1 /* DummyModel.swift */,
+				A40FD97A20DEEF37007EDDF1 /* URLSessionMock.swift */,
+				A40FD97320DEED1B007EDDF1 /* URLSessionDataTaskMock.swift */,
+			);
+			name = Helpers;
+			path = "New Group";
+			sourceTree = "<group>";
+		};
 		A47D8E3220DBBED500E59783 = {
 			isa = PBXGroup;
 			children = (
@@ -170,7 +195,10 @@
 		A47D8E5220DBBED700E59783 /* RecipesTests */ = {
 			isa = PBXGroup;
 			children = (
-				A47D8E5320DBBED700E59783 /* RecipesTests.swift */,
+				A46286EE20DEA5DD00628ECE /* RecipeUrlTests.swift */,
+				A46286F020DEA9CE00628ECE /* RecipeAPIResouceTests.swift */,
+				A40FD97620DEEF1E007EDDF1 /* APIServiceTests.swift */,
+				A40FD97220DEECF9007EDDF1 /* Helpers */,
 				A47D8E5520DBBED700E59783 /* Info.plist */,
 			);
 			path = RecipesTests;
@@ -180,6 +208,7 @@
 			isa = PBXGroup;
 			children = (
 				A47D8E5E20DBBED700E59783 /* RecipesUITests.swift */,
+				A40FD97020DEDD0E007EDDF1 /* XCUIElement+Extensions.swift */,
 				A47D8E6020DBBED700E59783 /* Info.plist */,
 			);
 			path = RecipesUITests;
@@ -441,6 +470,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A47D8E7420DBDE0600E59783 /* RecipeSearchDataProvider.swift in Sources */,
+				A40FD97520DEED21007EDDF1 /* URLSessionDataTaskMock.swift in Sources */,
 				A47D8E4120DBBED500E59783 /* RecipeSearchViewController.swift in Sources */,
 				A47D8E9E20DE219200E59783 /* RecipeDetailViewCotroller.swift in Sources */,
 				A47D8E8220DBE64500E59783 /* RecipeDetail.swift in Sources */,
@@ -458,6 +488,7 @@
 				A47D8E7A20DBDE6E00E59783 /* APIResource.swift in Sources */,
 				A47D8EA020DE21C900E59783 /* RecipeDetailDataProvider.swift in Sources */,
 				A47D8E8020DBE57600E59783 /* RecipePreview.swift in Sources */,
+				A40FD97C20DEEFE6007EDDF1 /* URLSessionMock.swift in Sources */,
 				A47D8E7B20DBDE6E00E59783 /* APIService.swift in Sources */,
 				A47D8E9720DE0FC800E59783 /* UIViewController+Extensions.swift in Sources */,
 				A47D8E8E20DCDA0A00E59783 /* Constants.swift in Sources */,
@@ -471,7 +502,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A47D8E5420DBBED700E59783 /* RecipesTests.swift in Sources */,
+				A40FD97420DEED1B007EDDF1 /* URLSessionDataTaskMock.swift in Sources */,
+				A40FD97B20DEEF37007EDDF1 /* URLSessionMock.swift in Sources */,
+				A46286EF20DEA5DD00628ECE /* RecipeUrlTests.swift in Sources */,
+				A40FD97920DEEF27007EDDF1 /* DummyModel.swift in Sources */,
+				A40FD97720DEEF1E007EDDF1 /* APIServiceTests.swift in Sources */,
+				A46286F120DEA9CE00628ECE /* RecipeAPIResouceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -480,6 +516,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A47D8E5F20DBBED700E59783 /* RecipesUITests.swift in Sources */,
+				A40FD97120DEDD0E007EDDF1 /* XCUIElement+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -629,6 +666,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7V3AGZ3QSE;
 				INFOPLIST_FILE = "Recipes/Supporting files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -646,6 +684,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7V3AGZ3QSE;
 				INFOPLIST_FILE = "Recipes/Supporting files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

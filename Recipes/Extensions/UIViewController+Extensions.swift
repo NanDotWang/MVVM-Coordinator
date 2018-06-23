@@ -30,6 +30,7 @@ extension UIViewController {
     static var noData: UIViewController {
         let viewController = UIViewController()
         viewController.view.backgroundColor = .white
+        viewController.accessibilityLabel = "emptyStateViewController"
         
         let label = UILabel()
         label.text = "No data".localized

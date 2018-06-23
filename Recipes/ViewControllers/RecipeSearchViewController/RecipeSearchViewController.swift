@@ -20,17 +20,28 @@ final class RecipeSearchViewController: UITableViewController {
     
     private let dataProvider: RecipeSearchDataProvider
     
-    private let loadingViewController = UIViewController.loading
+    private let loadingStateViewController = UIViewController.loading
+    
+    private let emptyStateViewController = UIViewController.noData
+    
+    /// Request token is used to cancel current search request
+    private var requestToken: RequestToken?
     
     /// UISearchController that we set into current navigation item
     private lazy var searchController: UISearchController = {
         let searchController = UISearchController(searchResultsController: nil)
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Search recipe".localized
-        navigationItem.searchController = searchController
+        searchController.searchBar.delegate = self
         navigationItem.hidesSearchBarWhenScrolling = false
         definesPresentationContext = true
         return searchController
+    }()
+    
+    private lazy var headerView: SearchHeaderView = {
+        let headerView = SearchHeaderView()
+        headerView.configureHeader(.topTrending)
+        return headerView
     }()
     
     /// Table view cell reuse identifier
@@ -43,7 +54,7 @@ final class RecipeSearchViewController: UITableViewController {
         
         dataProvider.delegate = self
         dataProvider.loadTrendingRecipes()
-        add(loadingViewController)
+        add(loadingStateViewController)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -55,26 +66,10 @@ final class RecipeSearchViewController: UITableViewController {
         super.viewDidLoad()
 
         title = "Recipes".localized
-        view.backgroundColor = .groupTableViewBackground
-        
-        // Don't show empty cells on the bottom
+        tableView.tableHeaderView = headerView
         tableView.tableFooterView = UIView()
-        
-        // Set `self` as the `UISearchResultsUpdating` delegate of search controller
-        searchController.searchResultsUpdater = self
-    }
-}
-
-// MARK: - UISearchResultsUpdating
-extension RecipeSearchViewController: UISearchResultsUpdating {
-    
-    func updateSearchResults(for searchController: UISearchController) {
-        guard
-            let query = searchController.searchBar.text,
-            !query.isEmpty
-            else { return }
-        
-        dataProvider.searchRecipes(query: query)
+        view.backgroundColor = .white
+        navigationItem.searchController = searchController
     }
 }
 
@@ -115,11 +110,58 @@ extension RecipeSearchViewController {
     }
 }
 
-// MARK: - RecipeSearchDataProviderDelegate
+// MARK: - RecipeSearchDataProvider Delegate
 extension RecipeSearchViewController: RecipeSearchDataProviderDelegate {
     
-    func recipeSearchDataProviderDidUpdateData(_ recipeSearchDataProvider: RecipeSearchDataProvider) {
-        loadingViewController.remove()
+    func recipeSearchDataProvider(_ recipeSearchDataProvider: RecipeSearchDataProvider, didUpdateData data: [RecipePreview]) {
+
+        /// Remove states view controllers
+        loadingStateViewController.remove()
+        emptyStateViewController.remove()
+        
+        if data.isEmpty {
+            add(emptyStateViewController)
+        }
+        
         tableView.reloadData()
+    }
+}
+
+// MARK: - UISearchBar Delegate
+extension RecipeSearchViewController: UISearchBarDelegate {
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        dataProvider.isSearching = true
+        headerView.configureHeader(.searchResults)
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        triggerSearch(with: searchText)
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        triggerSearch(with: searchBar.text)
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        dataProvider.isSearching = false
+        dataProvider.clearSearchResults()
+        headerView.configureHeader(.topTrending)
+    }
+    
+    private func triggerSearch(with keyword: String?) {
+        /// Cancel ongoing search request
+        requestToken?.cancel()
+        
+        guard
+            let query = keyword,
+            !query.isEmpty
+            else {
+                add(emptyStateViewController)
+                return
+        }
+
+        requestToken = dataProvider.searchRecipes(query: query)
+        add(loadingStateViewController)
     }
 }

@@ -11,7 +11,7 @@ import Foundation
 protocol RecipeSearchDataProviderDelegate: class {
     
     /// Tell the delegate that data has been updated, it would be nice to update the UI
-    func recipeSearchDataProviderDidUpdateData(_ recipeSearchDataProvider: RecipeSearchDataProvider)
+    func recipeSearchDataProvider(_ recipeSearchDataProvider: RecipeSearchDataProvider, didUpdateData data: [RecipePreview])
 }
 
 final class RecipeSearchDataProvider {
@@ -21,22 +21,35 @@ final class RecipeSearchDataProvider {
     /// API service for making network requests
     private let apiService: APIService
     
-    /// Recipe previews that should be shown on recipe search table view
-    private var recipePreviews = [RecipePreview]()
+    var isSearching: Bool = false {
+        didSet {
+            delegate?.recipeSearchDataProvider(self, didUpdateData: isSearching ? searchResultRecipes : topTrendingRecipes)
+        }
+    }
+    
+    private var topTrendingRecipes = [RecipePreview]()
+    
+    private var searchResultRecipes = [RecipePreview]()
     
     init(with apiService: APIService) {
         self.apiService = apiService
     }
   
     func numberOfRows() -> Int {
-        return recipePreviews.count
+        return isSearching ? searchResultRecipes.count : topTrendingRecipes.count
     }
     
     func data(for indexPath: IndexPath) -> RecipePreview {
-        guard indexPath.row < recipePreviews.count else {
+        let recipes = isSearching ? searchResultRecipes : topTrendingRecipes
+        
+        guard indexPath.row < recipes.count else {
             preconditionFailure("⚠️ Trying to retrieve out of boundary data")
         }
-        return recipePreviews[indexPath.row]
+        return recipes[indexPath.row]
+    }
+    
+    func clearSearchResults() {
+        searchResultRecipes.isEmpty ? () : searchResultRecipes.removeAll()
     }
 }
 
@@ -50,8 +63,8 @@ extension RecipeSearchDataProvider {
             
             switch result {
             case .success(let recipeSearchResponse):
-                self.recipePreviews = recipeSearchResponse.recipes
-                self.delegate?.recipeSearchDataProviderDidUpdateData(self)
+                self.topTrendingRecipes = recipeSearchResponse.recipes
+                self.delegate?.recipeSearchDataProvider(self, didUpdateData: self.topTrendingRecipes)
             case .failure(let error):
                 print("⚠️ \(#function) failed with error: \(error.localizedDescription)")
             }
@@ -59,14 +72,14 @@ extension RecipeSearchDataProvider {
     }
     
     /// Search recipes 
-    func searchRecipes(query: String) {
-        apiService.load(.searchRecipes(with: query)) { [weak self] (result) in
+    func searchRecipes(query: String) -> RequestToken {
+        return apiService.load(.searchRecipes(with: query)) { [weak self] (result) in
             guard let `self` = self else { return }
             
             switch result {
             case .success(let recipeSearchResponse):
-                self.recipePreviews = recipeSearchResponse.recipes
-                self.delegate?.recipeSearchDataProviderDidUpdateData(self)
+                self.searchResultRecipes = recipeSearchResponse.recipes
+                self.delegate?.recipeSearchDataProvider(self, didUpdateData: self.searchResultRecipes)
             case .failure(let error):
                 print("⚠️ \(#function) failed with error: \(error.localizedDescription)")
             }

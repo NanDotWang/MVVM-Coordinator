@@ -21,7 +21,8 @@ struct APIService {
         self.urlSession = urlSession
     }
     
-    func load<T>(_ resource: APIResource<T>, completion: ((Result<T>) -> Void)? = nil) {
+    @discardableResult
+    func load<T>(_ resource: APIResource<T>, completion: ((Result<T>) -> Void)? = nil) -> RequestToken {
         
         var urlRequest = URLRequest(url: resource.url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 10)
         
@@ -62,5 +63,7 @@ struct APIService {
         }
         
         task.resume()
+        
+        return RequestToken(task: task)
     }
 }

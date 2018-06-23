@@ -87,12 +87,12 @@ extension RecipeDetailViewController: RecipeDetailDataProviderDelegate {
     
     func RecipeDetailDataProviderDidUpdateData(_ recipeDetailDataProvider: RecipeDetailDataProvider) {
         loadingViewController.remove()
+        tableView.reloadData()
+
         title = dataProvider.recipeName
         footerView.configure(publisherName: dataProvider.publisherName, socialRank: dataProvider.socialRank)
-        
         tableView.tableFooterView = footerView
         tableView.tableHeaderView = RecipeHeaderView(with: dataProvider.recipeHeaderImageUrl, apiService: dataProvider.apiService)
-        tableView.reloadData()
     }
 }
 

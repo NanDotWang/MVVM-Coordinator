@@ -13,6 +13,7 @@ extension UIViewController {
     /// A loading view controller
     static var loading: UIViewController {
         let viewController = UIViewController()
+        viewController.view.backgroundColor = .white
         
         let indicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
         indicator.startAnimating()
@@ -20,6 +21,23 @@ extension UIViewController {
         viewController.view.addSubview(indicator, constraints: [
             indicator.centerXAnchor.constraint(equalTo: viewController.view.centerXAnchor),
             indicator.centerYAnchor.constraint(equalTo: viewController.view.centerYAnchor, constant: -150)
+            ])
+        
+        return viewController
+    }
+    
+    /// An noData empty state view controller
+    static var noData: UIViewController {
+        let viewController = UIViewController()
+        viewController.view.backgroundColor = .white
+        
+        let label = UILabel()
+        label.text = "No data".localized
+        label.font = .preferredFont(forTextStyle: .headline)
+        
+        viewController.view.addSubview(label, constraints: [
+            label.centerXAnchor.constraint(equalTo: viewController.view.centerXAnchor),
+            label.centerYAnchor.constraint(equalTo: viewController.view.centerYAnchor, constant: -150)
             ])
         
         return viewController

@@ -28,18 +28,3 @@ struct APIResource<T> {
         self.parseData = parseData
     }
 }
-
-extension APIResource {
-    
-    static var trendingRecipes: APIResource<RecipeSearchResponse> {
-        
-        return APIResource<RecipeSearchResponse>(url: URL.trendingRecipes) { data in
-            do {
-                return try JSONDecoder().decode(RecipeSearchResponse.self, from: data)
-            } catch let decodingError {
-                print("⚠️ Can not correctly parse RecipeSearchResponse: \(decodingError)")
-                return nil
-            }
-        }
-    }
-}

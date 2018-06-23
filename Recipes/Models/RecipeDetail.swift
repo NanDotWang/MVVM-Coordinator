@@ -19,3 +19,18 @@ struct RecipeDetail: Codable {
     let publisher_url: String
     let title: String
 }
+
+extension RecipeDetail {
+    
+    static var empty: RecipeDetail {
+        return RecipeDetail(publisher: "",
+                            f2f_url: "",
+                            ingredients: [String](),
+                            source_url: "",
+                            recipe_id: "",
+                            image_url: "",
+                            social_rank: 0,
+                            publisher_url: "",
+                            title: "")
+    }
+}

@@ -14,7 +14,7 @@ protocol RecipeSearchDataProviderDelegate: class {
     func recipeSearchDataProviderDidUpdateData(_ recipeSearchDataProvider: RecipeSearchDataProvider)
 }
 
-class RecipeSearchDataProvider {
+final class RecipeSearchDataProvider {
     
     weak var delegate: RecipeSearchDataProviderDelegate?
     
@@ -41,7 +41,6 @@ class RecipeSearchDataProvider {
 }
 
 // MARK: - API service related
-
 extension RecipeSearchDataProvider {
     
     /// Load trending recipes
@@ -54,7 +53,22 @@ extension RecipeSearchDataProvider {
                 self.recipePreviews = recipeSearchResponse.recipes
                 self.delegate?.recipeSearchDataProviderDidUpdateData(self)
             case .failure(let error):
-                print("⚠️ Failed load trending recipes with error: \(error.localizedDescription)")
+                print("⚠️ \(#function) failed with error: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    /// Search recipes 
+    func searchRecipes(query: String) {
+        apiService.load(.searchRecipes(with: query)) { [weak self] (result) in
+            guard let `self` = self else { return }
+            
+            switch result {
+            case .success(let recipeSearchResponse):
+                self.recipePreviews = recipeSearchResponse.recipes
+                self.delegate?.recipeSearchDataProviderDidUpdateData(self)
+            case .failure(let error):
+                print("⚠️ \(#function) failed with error: \(error.localizedDescription)")
             }
         }
     }

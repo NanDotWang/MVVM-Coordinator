@@ -7,20 +7,20 @@
 //
 
 import UIKit
-import CacheKit
 
 protocol RecipeSearchViewControllerDelegate: class {
     
+    /// Tell the delegate user has selected this recipe
     func recipeSearchViewController(_ recipeSearchViewController: RecipeSearchViewController, didSelectRecipe recipePreview: RecipePreview)
 }
 
-class RecipeSearchViewController: UITableViewController {
-    
-    // MARK: - Properties
+final class RecipeSearchViewController: UITableViewController {
     
     weak var delegate: RecipeSearchViewControllerDelegate?
     
     private let dataProvider: RecipeSearchDataProvider
+    
+    private let loadingViewController = UIViewController.loading
     
     /// UISearchController that we set into current navigation item
     private lazy var searchController: UISearchController = {
@@ -37,13 +37,13 @@ class RecipeSearchViewController: UITableViewController {
     private let cellReuseIdentifier = "RecipeSearchCell"
     
     // MARK: - Init
-    
     init(with dataProvider: RecipeSearchDataProvider) {
         self.dataProvider = dataProvider
         super.init(style: .plain)
         
         dataProvider.delegate = self
         dataProvider.loadTrendingRecipes()
+        add(loadingViewController)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -51,13 +51,11 @@ class RecipeSearchViewController: UITableViewController {
     }
     
     // MARK: - View life cycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         title = "Recipes".localized
         view.backgroundColor = .groupTableViewBackground
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellReuseIdentifier)
         
         // Don't show empty cells on the bottom
         tableView.tableFooterView = UIView()
@@ -71,39 +69,38 @@ class RecipeSearchViewController: UITableViewController {
 extension RecipeSearchViewController: UISearchResultsUpdating {
     
     func updateSearchResults(for searchController: UISearchController) {
+        guard
+            let query = searchController.searchBar.text,
+            !query.isEmpty
+            else { return }
         
-    }
-}
-
-// MARK: - RecipeSearchDataProviderDelegate
-
-extension RecipeSearchViewController: RecipeSearchDataProviderDelegate {
-    
-    func recipeSearchDataProviderDidUpdateData(_ recipeSearchDataProvider: RecipeSearchDataProvider) {
-        tableView.reloadData()
+        dataProvider.searchRecipes(query: query)
     }
 }
 
 //MARK: - TableView DataSource
 extension RecipeSearchViewController {
     
-    override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        return "Top trending recipes".localized
-    }
-    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataProvider.numberOfRows()
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier, for: indexPath)
         
-        let recipePreview = dataProvider.data(for: indexPath)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier) else {
+            let cell = UITableViewCell(style: .value1, reuseIdentifier: cellReuseIdentifier)
+            cell.accessoryType = .disclosureIndicator
+            configure(cell, for: indexPath)
+            return cell
+        }
         
-        cell.textLabel?.text = recipePreview.title
-        cell.setImage(with: URL(string: recipePreview.image_url)!)
-        
+        configure(cell, for: indexPath)
         return cell
+    }
+    
+    private func configure(_ cell: UITableViewCell, for indexPath: IndexPath) {
+        let recipePreview = dataProvider.data(for: indexPath)
+        cell.textLabel?.text = recipePreview.title
     }
 }
 
@@ -115,5 +112,14 @@ extension RecipeSearchViewController {
         
         let recipePreview = dataProvider.data(for: indexPath)
         delegate?.recipeSearchViewController(self, didSelectRecipe: recipePreview)
+    }
+}
+
+// MARK: - RecipeSearchDataProviderDelegate
+extension RecipeSearchViewController: RecipeSearchDataProviderDelegate {
+    
+    func recipeSearchDataProviderDidUpdateData(_ recipeSearchDataProvider: RecipeSearchDataProvider) {
+        loadingViewController.remove()
+        tableView.reloadData()
     }
 }

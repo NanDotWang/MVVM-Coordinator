@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import SafariServices
 
-final class RecipeSearchCoordinator: NSObject {
+final class RecipeSearchCoordinator {
     
     private let apiService = APIService()
     
@@ -29,7 +30,23 @@ final class RecipeSearchCoordinator: NSObject {
 extension RecipeSearchCoordinator: RecipeSearchViewControllerDelegate {
     
     func recipeSearchViewController(_ recipeSearchViewController: RecipeSearchViewController, didSelectRecipe recipePreview: RecipePreview) {
+        let dataProvider = RecipeDetailDataProvider(with: apiService, recipePreview: recipePreview)
+        let recipeDetailViewController = RecipeDetailViewController(with: dataProvider)
+        recipeDetailViewController.delegate = self
+        navigationController.pushViewController(recipeDetailViewController, animated: true)
+    }
+}
+
+extension RecipeSearchCoordinator: RecipeDetailViewControllerDelegate {
+    
+    func recipeDetailViewController(_ recipeDetailViewController: RecipeDetailViewController, shouldOpenUrl url: URL?) {
         
-        print(recipePreview)
+        guard let url = url else {
+            navigationController.showSimpleAlertWithMessage("⚠️ Invalid url")
+            return
+        }
+        
+        let safariViewController = SFSafariViewController(url: url)
+        navigationController.present(safariViewController, animated: true, completion: nil)
     }
 }

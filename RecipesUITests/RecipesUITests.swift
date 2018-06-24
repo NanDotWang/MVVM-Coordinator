@@ -26,6 +26,7 @@ class RecipesUITests: XCTestCase {
     func testShowInstructionsWebPage() {
         app.cells.firstMatch.safeTap()
         app.buttons["showInstructionsButton"].safeTap()
+        app.delay(1)
         
         XCTAssertTrue(app.buttons["Open in Safari"].exists)
     }
@@ -33,6 +34,7 @@ class RecipesUITests: XCTestCase {
     func testShowOriginalWebPage() {
         app.cells.firstMatch.safeTap()
         app.buttons["showOriginalButton"].safeTap()
+        app.delay(1)
         
         XCTAssertTrue(app.buttons["Open in Safari"].exists)
     }
@@ -41,8 +43,9 @@ class RecipesUITests: XCTestCase {
         app.searchFields.firstMatch.safeType("Chicken")
         app.cells.firstMatch.safeTap()
         app.buttons["showInstructionsButton"].safeTap()
+        app.delay(1)
         
-        XCTAssertTrue(app.buttons["Open in Safari"].exists)
+        XCTAssertTrue(app.buttons["Done"].exists)
     }
     
     func testSearchNoResults() {

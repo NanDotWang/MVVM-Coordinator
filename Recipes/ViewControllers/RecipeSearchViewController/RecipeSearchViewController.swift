@@ -115,7 +115,7 @@ extension RecipeSearchViewController: RecipeSearchDataProviderDelegate {
     
     func recipeSearchDataProvider(_ recipeSearchDataProvider: RecipeSearchDataProvider, didUpdateData data: [RecipePreview]) {
 
-        /// Remove states view controllers
+        /// Remove state view controllers
         loadingStateViewController.remove()
         emptyStateViewController.remove()
         
@@ -145,7 +145,6 @@ extension RecipeSearchViewController: UISearchBarDelegate {
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         dataProvider.isSearching = false
-        dataProvider.clearSearchResults()
         headerView.configureHeader(.topTrending)
     }
     
@@ -157,7 +156,7 @@ extension RecipeSearchViewController: UISearchBarDelegate {
             let query = keyword,
             !query.isEmpty
             else {
-                add(emptyStateViewController)
+                dataProvider.clearSearchResults()
                 return
         }
 

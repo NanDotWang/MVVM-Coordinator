@@ -21,15 +21,19 @@ final class RecipeSearchDataProvider {
     /// API service for making network requests
     private let apiService: APIService
     
-    var isSearching: Bool = false {
-        didSet {
-            delegate?.recipeSearchDataProvider(self, didUpdateData: isSearching ? searchResultRecipes : topTrendingRecipes)
-        }
-    }
-    
     private var topTrendingRecipes = [RecipePreview]()
     
     private var searchResultRecipes = [RecipePreview]()
+    
+    var isSearching: Bool = false {
+        didSet {
+            // Clear all search results if not in searching state
+            if !isSearching {
+                searchResultRecipes.isEmpty ? () : searchResultRecipes.removeAll()
+            }
+            delegate?.recipeSearchDataProvider(self, didUpdateData: isSearching ? searchResultRecipes : topTrendingRecipes)
+        }
+    }    
     
     init(with apiService: APIService) {
         self.apiService = apiService
@@ -50,6 +54,7 @@ final class RecipeSearchDataProvider {
     
     func clearSearchResults() {
         searchResultRecipes.isEmpty ? () : searchResultRecipes.removeAll()
+        delegate?.recipeSearchDataProvider(self, didUpdateData: searchResultRecipes)
     }
 }
 

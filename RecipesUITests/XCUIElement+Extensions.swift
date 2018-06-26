@@ -1,9 +1,9 @@
 //
 //  XCUIElement+Extensions.swift
-//  TestApp2UITests
+//  RecipesTests
 //
-//  Created by Nan Wang on 2018-04-26.
-//  Copyright © 2018 Klarna AB. All rights reserved.
+//  Created by Nan Wang on 2018-06-23.
+//  Copyright © 2018 Nan. All rights reserved.
 //
 
 import XCTest

@@ -28,3 +28,26 @@ struct APIResource<T> {
         self.parseData = parseData
     }
 }
+
+/// APIResource with `Decodable` model
+extension APIResource where T: Decodable {
+
+    init(url: URL,
+         method: HTTPMethod = .get,
+         body: [String: Any] = [:],
+         headers: [String: String] = [:]) {
+
+        self.url = url
+        self.method = method
+        self.body = body
+        self.headers = headers
+        self.parseData = { data in
+            do {
+                return try JSONDecoder().decode(T.self, from: data)
+            } catch let decodingError {
+                print("⚠️ Decoding error in \(#function): \(decodingError)")
+                return nil
+            }
+        }
+    }
+}

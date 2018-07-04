@@ -13,41 +13,17 @@ extension APIResource {
     
     /// Trending recipes API resource
     static var trendingRecipes: APIResource<RecipeSearchResponse> {
-        
-        return APIResource<RecipeSearchResponse>(url: URL.trendingRecipes) { data in
-            do {
-                return try JSONDecoder().decode(RecipeSearchResponse.self, from: data)
-            } catch let decodingError {
-                print("⚠️ Decoding error in \(#function): \(decodingError)")
-                return nil
-            }
-        }
+        return APIResource<RecipeSearchResponse>(url: URL.trendingRecipes)
     }
     
     /// Search recipes API resource
     static func searchRecipes(with query: String) -> APIResource<RecipeSearchResponse> {
-        
-        return APIResource<RecipeSearchResponse>(url: URL.searchRecipes(with: query)) { data in
-            do {
-                return try JSONDecoder().decode(RecipeSearchResponse.self, from: data)
-            } catch let decodingError {
-                print("⚠️ Decoding error in \(#function): \(decodingError)")
-                return nil
-            }
-        }
+        return APIResource<RecipeSearchResponse>(url: URL.searchRecipes(with: query))
     }
     
     /// Get recipe details API resource
-    static func recipeDetail(with recipeId: String) -> APIResource<RecipeDetailResponse> {
-        
-        return APIResource<RecipeDetailResponse>(url: URL.getRecipeDetail(with: recipeId)) { data in
-            do {
-                return try JSONDecoder().decode(RecipeDetailResponse.self, from: data)
-            } catch let decodingError {
-                print("⚠️ Decoding error in \(#function): \(decodingError)")
-                return nil
-            }
-        }
+    static func recipeDetail(with recipeId: String) -> APIResource<RecipeDetailResponse> {        
+        return APIResource<RecipeDetailResponse>(url: URL.getRecipeDetail(with: recipeId))
     }
     
     /// Load recipe image API resource

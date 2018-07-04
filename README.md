@@ -16,7 +16,7 @@ App uses a similar concept of MVVM + Coordinators pattern:
 * `ViewController` acts as a dummy UI layer and delegates its actions to `Coordinator` 
 * `Coordinator` instantiates view controllers, injects dependencies, handles push / present navigations. 
 
-![](Docs/Architecture.png)
+![Architecture](https://github.com/NanDotWang/MVVM-Coordinator/blob/master/Docs/Architecture.png)
 
 ## Unit tests
 Some basic unit tests are implemented to cover:

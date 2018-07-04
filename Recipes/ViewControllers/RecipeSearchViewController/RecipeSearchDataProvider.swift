@@ -45,10 +45,6 @@ final class RecipeSearchDataProvider {
     
     func data(for indexPath: IndexPath) -> RecipePreview {
         let recipes = isSearching ? searchResultRecipes : topTrendingRecipes
-        
-        guard indexPath.row < recipes.count else {
-            preconditionFailure("⚠️ Trying to retrieve out of boundary data")
-        }
         return recipes[indexPath.row]
     }
     

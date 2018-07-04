@@ -33,9 +33,6 @@ final class RecipeDetailDataProvider {
     }
     
     func data(for indexPath: IndexPath) -> String {
-        guard indexPath.row < recipeDetail.ingredients.count else {
-            preconditionFailure("⚠️ Trying to retrieve out of boundary data")
-        }
         return recipeDetail.ingredients[indexPath.row]
     }
     

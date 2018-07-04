@@ -1,9 +1,7 @@
-# Recipes
-
-Home assignment from Schibsted
+# MVVM + Coordinator Experiment
 
 ## Backend API
-Test app uses [Food2Fork API](http://food2fork.com/about/api) as a backend service, following API requests are used:
+App uses [Food2Fork API](http://food2fork.com/about/api) as a backend service, following API requests are used:
 
 | API Request           | Method  |                                                           Sample url |
 |:--------------------- |:-------:| --------------------------------------------------------------------:|
@@ -12,7 +10,7 @@ Test app uses [Food2Fork API](http://food2fork.com/about/api) as a backend servi
 | Get recipe detail     |   GET   |                 http://food2fork.com/api/get?key={key}&rId={recipeId}|
 
 ## Architecture
-Test app uses a similar concept of MVVM + Coordinators pattern:
+App uses a similar concept of MVVM + Coordinators pattern:
  
 * Each `ViewController` has a `DataProvider` which provides ready-to-use data for the `ViewController`.  
 * `ViewController` acts as a dummy UI layer and delegates its actions to `Coordinator` 

@@ -59,6 +59,14 @@ final class RecipeDetailViewController: UITableViewController {
         // Don't show empty cells on the bottom
         tableView.tableFooterView = UIView()
     }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        // Since `RecipeDetailViewController` is a UITableViewController,
+        // The loading view controller is added as a subview to the tableview it self
+        // This is a fix to bring the loading view controller to front
+        view.bringSubview(toFront: loadingViewController.view)
+    }
 }
 
 //MARK: - TableView DataSource
